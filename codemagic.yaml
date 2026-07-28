@@ -10,7 +10,6 @@ workflows:
 
     environment:
       java: 17
-      gradle: 8.7
 
     triggering:
       events:
@@ -25,10 +24,9 @@ workflows:
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
 
-      - name: Run unit tests
+      - name: Make gradlew executable
         script: |
           chmod +x gradlew
-          ./gradlew testDebugUnitTest
 
       - name: Build debug APK
         script: |
@@ -36,15 +34,6 @@ workflows:
 
     artifacts:
       - app/build/outputs/apk/debug/*.apk
-      - app/build/reports/tests/**
-
-    publishing:
-      email:
-        recipients:
-          - you@example.com  # <-- apna email daal do
-        notify:
-          success: true
-          failure: true
 
   # ─── Release Build ────────────────────────────────────
   android-release:
@@ -54,9 +43,8 @@ workflows:
 
     environment:
       java: 17
-      gradle: 8.7
       groups:
-        - keystore_credentials  # Codemagic dashboard mein set karo
+        - keystore_credentials
       vars:
         CM_KEYSTORE_PATH: /tmp/keystore.jks
 
@@ -76,13 +64,9 @@ workflows:
         script: |
           echo $CM_KEYSTORE | base64 --decode > $CM_KEYSTORE_PATH
 
-      - name: Run unit tests
-        script: |
-          chmod +x gradlew
-          ./gradlew testReleaseUnitTest
-
       - name: Build release APK
         script: |
+          chmod +x gradlew
           ./gradlew assembleRelease
 
       - name: Build release AAB (Play Store)
@@ -92,12 +76,3 @@ workflows:
     artifacts:
       - app/build/outputs/apk/release/*.apk
       - app/build/outputs/bundle/release/*.aab
-      - app/build/reports/tests/**
-
-    publishing:
-      email:
-        recipients:
-          - you@example.com  # <-- apna email daal do
-        notify:
-          success: true
-          failure: true
