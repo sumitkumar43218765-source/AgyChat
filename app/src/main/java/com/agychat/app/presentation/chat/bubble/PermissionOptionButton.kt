@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.agychat.app.domain.model.PermissionOption
 import com.agychat.app.presentation.theme.AgyPrimary
 import com.agychat.app.presentation.theme.Dimens
-import com.agychat.app.presentation.theme.Shape
+import com.agychat.app.presentation.theme.ChipShape
 
 @Composable
 fun PermissionOptionButton(
@@ -20,7 +20,7 @@ fun PermissionOptionButton(
     isSelected: Boolean,
     onSelect: () -> Unit
 ) {
-    val modifier = if (isSelected) Modifier.border(2.dp, AgyPrimary, Shape.ChipShape) else Modifier
+    val modifier = if (isSelected) Modifier.border(2.dp, AgyPrimary, ChipShape) else Modifier
     Box(
         modifier = modifier
             .fillMaxWidth()

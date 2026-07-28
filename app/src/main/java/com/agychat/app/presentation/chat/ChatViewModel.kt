@@ -72,7 +72,7 @@ class ChatViewModel @Inject constructor(
     fun onEvent(event: ChatUiEvent) {
         when (event) {
             is ChatUiEvent.SendMessage -> viewModelScope.launch { sendUserMessageUseCase(sessionId, event.text) }
-            is ChatUiEvent.RespondToPermission -> viewModelScope.launch { sendPermissionResponseUseCase(event.promptId, event.selectedIndex) }
+            is ChatUiEvent.RespondToPermission -> viewModelScope.launch { sendPermissionResponseUseCase(event.promptId.toIntOrNull() ?: 0, event.selectedIndex) }
             is ChatUiEvent.StopAgent -> viewModelScope.launch { stopAgyProcessUseCase() }
             // Expansion toggles would update message state locally or in domain
             else -> {}

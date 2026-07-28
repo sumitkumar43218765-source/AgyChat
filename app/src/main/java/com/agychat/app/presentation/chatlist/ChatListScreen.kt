@@ -25,9 +25,7 @@ fun ChatListScreen(
     Scaffold(
         topBar = {
             AgyChatTopBar(
-                title = "AgyChat",
-                onSettingsClick = onNavigateToSettings,
-                onWorkspacesClick = onNavigateToWorkspaces
+                title = "AgyChat"
             )
         },
         floatingActionButton = {

@@ -21,8 +21,7 @@ fun ChatScreen(
         topBar = {
             AgyChatTopBar(
                 title = uiState.sessionTitle,
-                onBackClick = onNavigateBack,
-                onPlanClick = onNavigateToPlan
+                onNavigateBack = onNavigateBack
             )
         }
     ) { padding ->

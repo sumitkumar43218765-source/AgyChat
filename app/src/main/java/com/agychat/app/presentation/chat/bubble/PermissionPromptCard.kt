@@ -13,7 +13,7 @@ import com.agychat.app.domain.model.PermissionPromptContent
 import com.agychat.app.presentation.theme.AgyPrimary
 import com.agychat.app.presentation.theme.BubblePermission
 import com.agychat.app.presentation.theme.Dimens
-import com.agychat.app.presentation.theme.Shape
+import com.agychat.app.presentation.theme.CardShape
 
 @Composable
 fun PermissionPromptCard(
@@ -24,9 +24,9 @@ fun PermissionPromptCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = Dimens.SpacingSm)
-            .border(1.dp, AgyPrimary, Shape.CardShape),
+            .border(1.dp, AgyPrimary, CardShape),
         colors = CardDefaults.cardColors(containerColor = BubblePermission),
-        shape = Shape.CardShape
+        shape = CardShape
     ) {
         Column(modifier = Modifier.padding(Dimens.SpacingMd)) {
             Text(text = content.question, fontWeight = FontWeight.Bold)

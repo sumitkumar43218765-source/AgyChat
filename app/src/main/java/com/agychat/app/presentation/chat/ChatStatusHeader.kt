@@ -24,7 +24,7 @@ fun ChatStatusHeader(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(text = model?.text ?: "Unknown Model", color = androidx.compose.ui.graphics.Color.LightGray)
-        Text(text = connectionState.name, color = androidx.compose.ui.graphics.Color.Green)
+        Text(text = model?.modelName ?: "Unknown Model", color = androidx.compose.ui.graphics.Color.LightGray)
+        Text(text = connectionState.javaClass.simpleName, color = androidx.compose.ui.graphics.Color.Green)
     }
 }

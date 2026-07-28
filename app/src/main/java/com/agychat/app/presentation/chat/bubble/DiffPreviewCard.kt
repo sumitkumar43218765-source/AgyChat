@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.agychat.app.domain.model.DiffPreviewContent
 import com.agychat.app.presentation.theme.Dimens
-import com.agychat.app.presentation.theme.Shape
+import com.agychat.app.presentation.theme.CardShape
 
 @Composable
 fun DiffPreviewCard(
@@ -23,7 +23,7 @@ fun DiffPreviewCard(
             .fillMaxWidth()
             .padding(vertical = Dimens.SpacingSm)
             .clickable { onToggle() }
-            .background(androidx.compose.ui.graphics.Color.DarkGray, Shape.CardShape)
+            .background(androidx.compose.ui.graphics.Color.DarkGray, CardShape)
             .padding(Dimens.SpacingSm)
     ) {
         Text(text = content.filePath, modifier = Modifier.padding(bottom = Dimens.SpacingSm))

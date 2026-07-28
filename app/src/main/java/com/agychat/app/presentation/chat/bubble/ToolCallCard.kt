@@ -11,7 +11,7 @@ import com.agychat.app.domain.model.ToolCallContent
 import com.agychat.app.presentation.theme.AgySecondary
 import com.agychat.app.presentation.theme.BubbleToolCall
 import com.agychat.app.presentation.theme.Dimens
-import com.agychat.app.presentation.theme.Shape
+import com.agychat.app.presentation.theme.ChipShape
 
 @Composable
 fun ToolCallCard(
@@ -23,7 +23,7 @@ fun ToolCallCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = Dimens.SpacingSm)
-            .background(BubbleToolCall, Shape.ChipShape)
+            .background(BubbleToolCall, ChipShape)
             .clickable { onToggle() }
             .padding(Dimens.SpacingMd)
     ) {

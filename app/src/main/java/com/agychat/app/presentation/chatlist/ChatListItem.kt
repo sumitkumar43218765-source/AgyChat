@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.agychat.app.domain.model.ChatSession
 import com.agychat.app.presentation.theme.AgySurfaceElevatedDark
 import com.agychat.app.presentation.theme.Dimens
-import com.agychat.app.presentation.theme.Shape
+import com.agychat.app.presentation.theme.CardShape
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -31,12 +31,12 @@ fun ChatListItem(
                 onLongClick = { showActions = true }
             ),
         colors = CardDefaults.cardColors(containerColor = AgySurfaceElevatedDark),
-        shape = Shape.CardShape
+        shape = CardShape
     ) {
         Column(modifier = Modifier.padding(Dimens.SpacingMd)) {
             Text(text = session.title, fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleMedium)
             Spacer(modifier = Modifier.height(4.dp))
-            Text(text = session.lastMessagePreview ?: "No messages", style = MaterialTheme.typography.bodyMedium)
+            Text(text = "Updated: ${session.updatedAt}", style = MaterialTheme.typography.bodyMedium)
         }
         
         if (showActions) {

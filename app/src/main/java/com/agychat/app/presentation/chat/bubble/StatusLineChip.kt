@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.agychat.app.domain.model.StatusLineContent
 import com.agychat.app.presentation.theme.Dimens
-import com.agychat.app.presentation.theme.Shape
+import com.agychat.app.presentation.theme.ChipShape
 
 @Composable
 fun StatusLineChip(content: StatusLineContent) {
@@ -21,10 +21,10 @@ fun StatusLineChip(content: StatusLineContent) {
     ) {
         Box(
             modifier = Modifier
-                .background(Color.DarkGray, Shape.ChipShape)
+                .background(Color.DarkGray, ChipShape)
                 .padding(horizontal = Dimens.SpacingMd, vertical = Dimens.SpacingSm)
         ) {
-            Text(text = "${content.text} · ${content.effort}", color = Color.LightGray)
+            Text(text = "${content.modelName} · ${content.effortLevel}", color = Color.LightGray)
         }
     }
 }

@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import com.agychat.app.domain.model.ThinkingBlockContent
 import com.agychat.app.presentation.theme.BubbleThinking
 import com.agychat.app.presentation.theme.Dimens
-import com.agychat.app.presentation.theme.Shape
+import com.agychat.app.presentation.theme.CardShape
 
 @Composable
 fun ThinkingCollapsible(
@@ -21,7 +21,7 @@ fun ThinkingCollapsible(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = Dimens.SpacingSm)
-            .background(BubbleThinking, Shape.CardShape)
+            .background(BubbleThinking, CardShape)
             .clickable { onToggle() }
             .padding(Dimens.SpacingMd)
     ) {
