@@ -2,10 +2,10 @@ package com.agychat.app.presentation.workspace
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.agychat.app.domain.usecase.CreateWorkspaceUseCase
-import com.agychat.app.domain.usecase.DeleteWorkspaceUseCase
-import com.agychat.app.domain.usecase.GetWorkspacesUseCase
-import com.agychat.app.domain.usecase.SelectActiveWorkspaceUseCase
+import com.agychat.app.domain.usecase.workspace.CreateWorkspaceUseCase
+import com.agychat.app.domain.usecase.workspace.DeleteWorkspaceUseCase
+import com.agychat.app.domain.usecase.workspace.GetWorkspacesUseCase
+import com.agychat.app.domain.usecase.workspace.SelectActiveWorkspaceUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -2,11 +2,11 @@ package com.agychat.app.presentation.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.agychat.app.domain.usecase.GetAgyBinaryPathUseCase
-import com.agychat.app.domain.usecase.GetIdleSettleDelayUseCase
-import com.agychat.app.domain.usecase.SetAgyBinaryPathUseCase
-import com.agychat.app.domain.usecase.SetIdleSettleDelayUseCase
-import com.agychat.app.domain.usecase.ValidateAgyInstallationUseCase
+import com.agychat.app.domain.usecase.settings.GetAgyBinaryPathUseCase
+import com.agychat.app.domain.usecase.settings.GetIdleSettleDelayUseCase
+import com.agychat.app.domain.usecase.settings.SetAgyBinaryPathUseCase
+import com.agychat.app.domain.usecase.settings.SetIdleSettleDelayUseCase
+import com.agychat.app.domain.usecase.settings.ValidateAgyInstallationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

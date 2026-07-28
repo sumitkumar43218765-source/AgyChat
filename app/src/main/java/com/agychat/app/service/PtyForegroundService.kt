@@ -11,7 +11,7 @@ import javax.inject.Inject
 class PtyForegroundService : Service() {
 
     @Inject
-    lateinit val notificationBuilder: ServiceNotificationBuilder
+    lateinit var notificationBuilder: ServiceNotificationBuilder
 
     companion object {
         private const val NOTIFICATION_ID = 1001
