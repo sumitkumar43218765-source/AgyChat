@@ -23,8 +23,11 @@ workflows:
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
 
-      - name: Make gradlew executable
+      - name: Set up Gradle wrapper
         script: |
+          if [ ! -f gradlew ]; then
+            gradle wrapper --gradle-version 8.7
+          fi
           chmod +x gradlew
 
       - name: Build debug APK
@@ -64,6 +67,9 @@ workflows:
 
       - name: Build release APK
         script: |
+          if [ ! -f gradlew ]; then
+            gradle wrapper --gradle-version 8.7
+          fi
           chmod +x gradlew
           ./gradlew assembleRelease
 
