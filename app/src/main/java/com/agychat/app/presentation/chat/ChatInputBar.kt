@@ -38,7 +38,7 @@ fun ChatInputBar(onSend: (String) -> Unit) {
                     unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             )
-            Spacer(modifier = Modifier.width(Dimens.Dimens.SpacingSm))
+            Spacer(modifier = Modifier.width(Dimens.SpacingSm))
             IconButton(
                 onClick = {
                     if (text.isNotBlank()) {

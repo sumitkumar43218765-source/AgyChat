@@ -3,7 +3,7 @@ package com.agychat.app.data.local.mapper
 import com.agychat.app.data.local.storage.WorkspaceDto
 import com.agychat.app.domain.model.ProjectWorkspace
 
-internal object WorkspaceMapper {
+object WorkspaceMapper {
     fun toDomain(dto: WorkspaceDto): ProjectWorkspace {
         return ProjectWorkspace(
             id = dto.id,

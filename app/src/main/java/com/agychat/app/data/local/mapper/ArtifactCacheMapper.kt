@@ -3,7 +3,7 @@ package com.agychat.app.data.local.mapper
 import com.agychat.app.data.local.storage.ArtifactCacheDto
 import com.agychat.app.domain.model.ArtifactCache
 
-internal object ArtifactCacheMapper {
+object ArtifactCacheMapper {
     fun toDomain(dto: ArtifactCacheDto): ArtifactCache {
         return ArtifactCache(
             conversationUuid = dto.conversationUuid,

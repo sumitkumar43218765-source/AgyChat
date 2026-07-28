@@ -2,13 +2,14 @@ package com.agychat.app.data.local.mapper
 
 import com.agychat.app.data.local.storage.ChatMessageDto
 import com.agychat.app.domain.model.ChatMessage
+import com.agychat.app.domain.model.MessageType
 
-internal object ChatMessageMapper {
+object ChatMessageMapper {
     fun toDomain(dto: ChatMessageDto): ChatMessage {
         return ChatMessage(
             id = dto.id,
             sessionId = dto.sessionId,
-            role = dto.role,
+            type = try { MessageType.valueOf(dto.role) } catch (e: Exception) { MessageType.USER },
             content = dto.content,
             timestamp = dto.timestamp
         )
@@ -18,7 +19,7 @@ internal object ChatMessageMapper {
         return ChatMessageDto(
             id = domain.id,
             sessionId = domain.sessionId,
-            role = domain.role,
+            role = domain.type.name,
             content = domain.content,
             timestamp = domain.timestamp
         )
