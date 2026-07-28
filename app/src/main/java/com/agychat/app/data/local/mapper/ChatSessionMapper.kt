@@ -8,8 +8,11 @@ internal object ChatSessionMapper {
         return ChatSession(
             id = dto.id,
             title = dto.title,
-            timestamp = dto.timestamp,
-            workspaceId = dto.workspaceId
+            conversationUuid = null, // Or how to store this? We'll leave null for now as DTO lacks it
+            workspaceId = dto.workspaceId,
+            createdAt = dto.timestamp,
+            updatedAt = dto.timestamp,
+            isActive = false
         )
     }
 
@@ -17,7 +20,7 @@ internal object ChatSessionMapper {
         return ChatSessionDto(
             id = domain.id,
             title = domain.title,
-            timestamp = domain.timestamp,
+            timestamp = domain.createdAt,
             workspaceId = domain.workspaceId
         )
     }

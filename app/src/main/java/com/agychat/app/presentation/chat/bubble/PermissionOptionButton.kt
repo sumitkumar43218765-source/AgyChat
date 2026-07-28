@@ -25,7 +25,7 @@ fun PermissionOptionButton(
         modifier = modifier
             .fillMaxWidth()
             .clickable(onClick = onSelect)
-            .padding(Dimens.spacingS)
+            .padding(Dimens.SpacingSm)
     ) {
         Text(text = option.label)
     }

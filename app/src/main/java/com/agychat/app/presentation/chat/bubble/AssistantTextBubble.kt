@@ -21,7 +21,7 @@ fun AssistantTextBubble(content: AssistantTextContent) {
         Box(
             modifier = Modifier
                 .background(BubbleAssistant, BubbleShapeAssistant)
-                .padding(Dimens.spacingM)
+                .padding(Dimens.SpacingMd)
         ) {
             Text(text = content.text, color = Color.LightGray)
         }

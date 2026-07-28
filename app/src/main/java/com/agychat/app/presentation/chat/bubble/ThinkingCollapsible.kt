@@ -20,10 +20,10 @@ fun ThinkingCollapsible(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = Dimens.spacingS)
+            .padding(vertical = Dimens.SpacingSm)
             .background(BubbleThinking, Shape.CardShape)
             .clickable { onToggle() }
-            .padding(Dimens.spacingM)
+            .padding(Dimens.SpacingMd)
     ) {
         if (isExpanded) {
             Text(text = content.summary + "\nTokens: ${content.tokens}")

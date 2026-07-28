@@ -42,7 +42,7 @@ fun ChatListScreen(
             } else {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(Dimens.spacingM)
+                    contentPadding = PaddingValues(Dimens.SpacingMd)
                 ) {
                     items(uiState.sessions, key = { it.id }) { session ->
                         ChatListItem(
@@ -51,7 +51,7 @@ fun ChatListScreen(
                             onDelete = { viewModel.onEvent(ChatListUiEvent.DeleteChat(session.id)) },
                             onRename = { newName -> viewModel.onEvent(ChatListUiEvent.RenameChat(session.id, newName)) }
                         )
-                        Spacer(modifier = Modifier.height(Dimens.spacingS))
+                        Spacer(modifier = Modifier.height(Dimens.SpacingSm))
                     }
                 }
             }

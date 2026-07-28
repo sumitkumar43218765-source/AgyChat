@@ -22,7 +22,7 @@ fun UserMessageBubble(text: String, timestamp: Long) {
             Box(
                 modifier = Modifier
                     .background(BubbleUser, BubbleShapeUser)
-                    .padding(Dimens.spacingM)
+                    .padding(Dimens.SpacingMd)
             ) {
                 Text(text = text, color = Color.White)
             }

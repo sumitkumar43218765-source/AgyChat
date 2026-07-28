@@ -33,7 +33,7 @@ fun ChatListItem(
         colors = CardDefaults.cardColors(containerColor = AgySurfaceElevatedDark),
         shape = Shape.CardShape
     ) {
-        Column(modifier = Modifier.padding(Dimens.spacingM)) {
+        Column(modifier = Modifier.padding(Dimens.SpacingMd)) {
             Text(text = session.title, fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleMedium)
             Spacer(modifier = Modifier.height(4.dp))
             Text(text = session.lastMessagePreview ?: "No messages", style = MaterialTheme.typography.bodyMedium)

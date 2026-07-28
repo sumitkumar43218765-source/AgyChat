@@ -16,13 +16,13 @@ import com.agychat.app.presentation.theme.Shape
 @Composable
 fun StatusLineChip(content: StatusLineContent) {
     Box(
-        modifier = Modifier.fillMaxWidth().padding(vertical = Dimens.spacingS),
+        modifier = Modifier.fillMaxWidth().padding(vertical = Dimens.SpacingSm),
         contentAlignment = Alignment.Center
     ) {
         Box(
             modifier = Modifier
                 .background(Color.DarkGray, Shape.ChipShape)
-                .padding(horizontal = Dimens.spacingM, vertical = Dimens.spacingS)
+                .padding(horizontal = Dimens.SpacingMd, vertical = Dimens.SpacingSm)
         ) {
             Text(text = "${content.text} · ${content.effort}", color = Color.LightGray)
         }

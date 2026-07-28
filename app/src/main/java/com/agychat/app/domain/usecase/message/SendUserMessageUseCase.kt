@@ -1,7 +1,7 @@
 package com.agychat.app.domain.usecase.message
 
 import com.agychat.app.domain.model.ChatMessage
-import com.agychat.app.domain.model.ChatMessageType
+import com.agychat.app.domain.model.MessageType
 import com.agychat.app.domain.repository.ChatMessageRepository
 import javax.inject.Inject
 import java.util.UUID
@@ -16,8 +16,8 @@ class SendUserMessageUseCase @Inject constructor(
         val msg = ChatMessage(
             id = UUID.randomUUID().toString(),
             sessionId = sessionId,
-            text = text,
-            type = ChatMessageType.USER,
+            content = text,
+            type = MessageType.USER,
             timestamp = System.currentTimeMillis()
         )
         msgRepo.addMessage(msg)

@@ -23,14 +23,14 @@ fun PermissionPromptCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = Dimens.spacingS)
+            .padding(vertical = Dimens.SpacingSm)
             .border(1.dp, AgyPrimary, Shape.CardShape),
         colors = CardDefaults.cardColors(containerColor = BubblePermission),
         shape = Shape.CardShape
     ) {
-        Column(modifier = Modifier.padding(Dimens.spacingM)) {
+        Column(modifier = Modifier.padding(Dimens.SpacingMd)) {
             Text(text = content.question, fontWeight = FontWeight.Bold)
-            Spacer(modifier = Modifier.height(Dimens.spacingS))
+            Spacer(modifier = Modifier.height(Dimens.SpacingSm))
             content.options.forEachIndexed { index, option ->
                 PermissionOptionButton(
                     option = option,

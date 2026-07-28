@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 import javax.inject.Singleton
 
-internal data class ArtifactCacheDto(
+data class ArtifactCacheDto(
     val conversationUuid: String,
     val content: String,
     val lastUpdated: Long

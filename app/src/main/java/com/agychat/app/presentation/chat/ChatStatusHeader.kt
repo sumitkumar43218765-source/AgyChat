@@ -20,7 +20,7 @@ fun ChatStatusHeader(
         modifier = Modifier
             .fillMaxWidth()
             .background(AgySurfaceDark)
-            .padding(Dimens.spacingS),
+            .padding(Dimens.SpacingSm),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

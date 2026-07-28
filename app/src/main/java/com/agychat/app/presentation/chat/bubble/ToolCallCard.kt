@@ -22,10 +22,10 @@ fun ToolCallCard(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = Dimens.spacingS)
+            .padding(vertical = Dimens.SpacingSm)
             .background(BubbleToolCall, Shape.ChipShape)
             .clickable { onToggle() }
-            .padding(Dimens.spacingM)
+            .padding(Dimens.SpacingMd)
     ) {
         Column {
             Text(text = content.actionName, fontWeight = FontWeight.Bold, color = AgySecondary)

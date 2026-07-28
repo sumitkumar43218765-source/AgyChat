@@ -1,9 +1,10 @@
 package com.agychat.app.domain.usecase.message
 
 import com.agychat.app.domain.model.ChatMessage
-import com.agychat.app.domain.model.ChatMessageType
+import com.agychat.app.domain.model.MessageType
 import com.agychat.app.domain.model.ParsedEvent
 import com.agychat.app.domain.repository.ChatMessageRepository
+import com.google.gson.Gson
 import javax.inject.Inject
 import java.util.UUID
 
@@ -17,10 +18,9 @@ class AppendParsedEventAsMessageUseCase @Inject constructor(
         val msg = ChatMessage(
             id = UUID.randomUUID().toString(),
             sessionId = sessionId,
-            text = event.toString(), // or map appropriately
-            type = ChatMessageType.ASSISTANT,
-            timestamp = System.currentTimeMillis(),
-            parsedEvent = event
+            type = MessageType.ASSISTANT_TEXT,
+            content = Gson().toJson(event),
+            timestamp = System.currentTimeMillis()
         )
         repo.addMessage(msg)
         return msg

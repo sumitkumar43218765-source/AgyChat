@@ -21,12 +21,12 @@ fun DiffPreviewCard(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = Dimens.spacingS)
+            .padding(vertical = Dimens.SpacingSm)
             .clickable { onToggle() }
             .background(androidx.compose.ui.graphics.Color.DarkGray, Shape.CardShape)
-            .padding(Dimens.spacingS)
+            .padding(Dimens.SpacingSm)
     ) {
-        Text(text = content.filePath, modifier = Modifier.padding(bottom = Dimens.spacingS))
+        Text(text = content.filePath, modifier = Modifier.padding(bottom = Dimens.SpacingSm))
         val linesToShow = if (isExpanded) content.lines else content.lines.take(5)
         linesToShow.forEach { line ->
             DiffLineRow(line = line)

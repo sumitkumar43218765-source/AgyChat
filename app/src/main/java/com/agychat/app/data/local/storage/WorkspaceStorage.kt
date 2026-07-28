@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
-internal data class WorkspaceDto(
+data class WorkspaceDto(
     val id: String,
     val name: String,
     val uri: String,

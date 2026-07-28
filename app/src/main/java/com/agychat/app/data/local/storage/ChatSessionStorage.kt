@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
-internal data class ChatSessionDto(
+data class ChatSessionDto(
     val id: String,
     val title: String,
     val timestamp: Long,

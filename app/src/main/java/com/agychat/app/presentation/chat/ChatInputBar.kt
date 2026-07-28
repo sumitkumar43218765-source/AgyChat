@@ -24,7 +24,7 @@ fun ChatInputBar(onSend: (String) -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(AgySurfaceElevatedDark)
-                .padding(Dimens.spacingM),
+                .padding(Dimens.SpacingMd),
             verticalAlignment = Alignment.CenterVertically
         ) {
             TextField(
@@ -38,7 +38,7 @@ fun ChatInputBar(onSend: (String) -> Unit) {
                     unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             )
-            Spacer(modifier = Modifier.width(Dimens.spacingS))
+            Spacer(modifier = Modifier.width(Dimens.Dimens.SpacingSm))
             IconButton(
                 onClick = {
                     if (text.isNotBlank()) {

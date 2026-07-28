@@ -8,8 +8,9 @@ internal object WorkspaceMapper {
         return ProjectWorkspace(
             id = dto.id,
             name = dto.name,
-            uri = dto.uri,
-            isActive = dto.isActive
+            path = dto.uri,
+            isActive = dto.isActive,
+            createdAt = 0L
         )
     }
 
@@ -17,7 +18,7 @@ internal object WorkspaceMapper {
         return WorkspaceDto(
             id = domain.id,
             name = domain.name,
-            uri = domain.uri,
+            uri = domain.path,
             isActive = domain.isActive
         )
     }
