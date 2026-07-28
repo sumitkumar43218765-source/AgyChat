@@ -1,0 +1,12 @@
+<resources>
+    <!-- Workspace Screen -->
+    <string name="workspace_title">Workspaces</string>
+    <string name="workspace_create_title">Create Workspace</string>
+    <string name="workspace_name_hint">Workspace name</string>
+    <string name="workspace_path_hint">Project path (e.g. /storage/emulated/0/projects/my-app)</string>
+    <string name="workspace_delete_title">Delete Workspace</string>
+    <string name="workspace_delete_confirm">Are you sure you want to delete workspace \"%1$s\"?</string>
+    <string name="workspace_empty_title">No Workspaces</string>
+    <string name="workspace_empty_subtitle">Create a workspace to start using agy</string>
+    <string name="workspace_active_label">Active</string>
+</resources>

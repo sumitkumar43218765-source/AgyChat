@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">AgyChat</string>
+    <string name="app_description">Chat UI for Antigravity CLI</string>
+
+    <!-- Navigation -->
+    <string name="nav_chat_list">Chats</string>
+    <string name="nav_workspaces">Workspaces</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Common -->
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_retry">Retry</string>
+    <string name="btn_close">Close</string>
+    <string name="btn_expand">Expand</string>
+    <string name="btn_collapse">Collapse</string>
+    <string name="label_loading">Loading…</string>
+    <string name="label_empty">Nothing here yet</string>
+    <string name="label_error">Something went wrong</string>
+    <string name="label_connection_ok">Connected</string>
+    <string name="label_connection_lost">Disconnected</string>
+    <string name="label_connecting">Connecting…</string>
+</resources>

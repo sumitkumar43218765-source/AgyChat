@@ -1,0 +1,18 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Background circle -->
+    <path
+        android:fillColor="#6C63FF"
+        android:pathData="M54,54m-54,0a54,54 0,1 1,108 0a54,54 0,1 1,-108 0" />
+    <!-- Chat bubble shape -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M34,38h40c2.2,0 4,1.8 4,4v24c0,2.2 -1.8,4 -4,4H42l-8,8V70H34c-2.2,0 -4,-1.8 -4,-4V42C30,39.8 31.8,38 34,38z" />
+    <!-- Terminal cursor inside bubble -->
+    <path
+        android:fillColor="#6C63FF"
+        android:pathData="M40,48l6,6 -6,6M50,60h14" />
+</vector>

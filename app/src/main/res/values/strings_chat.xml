@@ -1,0 +1,21 @@
+<resources>
+    <!-- Chat Screen -->
+    <string name="chat_input_hint">Type a message…</string>
+    <string name="chat_send">Send</string>
+    <string name="chat_empty_title">No Messages Yet</string>
+    <string name="chat_empty_subtitle">Send a message to start chatting with agy</string>
+    <string name="chat_thinking">Thinking…</string>
+    <string name="chat_thinking_detail">Thought for %1$ds, %2$d tokens</string>
+    <string name="chat_tool_call">Tool Call</string>
+    <string name="chat_diff_preview">Diff Preview</string>
+    <string name="chat_diff_hidden_lines">… %1$d more lines</string>
+    <string name="chat_permission_prompt">Permission Required</string>
+    <string name="chat_permission_yes">Yes, allow</string>
+    <string name="chat_permission_no">No, deny</string>
+    <string name="chat_status_model">Model: %1$s</string>
+    <string name="chat_status_effort">Effort: %1$s</string>
+    <string name="chat_new_title">New Chat</string>
+    <string name="chat_rename_title">Rename Chat</string>
+    <string name="chat_delete_title">Delete Chat</string>
+    <string name="chat_delete_confirm">Are you sure you want to delete this chat?</string>
+</resources>
