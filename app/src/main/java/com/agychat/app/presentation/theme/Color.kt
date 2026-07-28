@@ -26,6 +26,10 @@ val AgySurfaceElevatedLight = Color(0xFFF0F0FF)
 val AgyOnBackgroundLight = Color(0xFF1A1A2E)
 val AgyOnSurfaceLight = Color(0xFF3D3D5C)
 
+// ── Text Color Aliases ──
+val AgyTextPrimary = Color(0xFFEAEAFF)
+val AgyTextSecondary = Color(0xFFCFCFE6)
+
 // ── Chat Bubble Colors ──
 val BubbleUser = Color(0xFF6C63FF)
 val BubbleAssistant = Color(0xFF1E1E30)

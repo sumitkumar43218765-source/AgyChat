@@ -13,7 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.agychat.app.presentation.components.AgyChatTextField
+import com.agychat.app.presentation.common.AgyChatTextField
 import com.agychat.app.presentation.theme.AgyPrimary
 import com.agychat.app.presentation.theme.AgySurfaceElevatedDark
 import com.agychat.app.presentation.theme.AgyTextPrimary

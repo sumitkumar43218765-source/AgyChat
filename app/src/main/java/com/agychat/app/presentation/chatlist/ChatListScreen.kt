@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.agychat.app.presentation.theme.Dimens
-import com.agychat.app.presentation.components.AgyChatTopBar
+import com.agychat.app.presentation.common.AgyChatTopBar
 
 @Composable
 fun ChatListScreen(

@@ -16,8 +16,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.agychat.app.presentation.components.AgyChatTopBar
-import com.agychat.app.presentation.components.EmptyStateView
+import com.agychat.app.presentation.common.AgyChatTopBar
+import com.agychat.app.presentation.common.EmptyStateView
 import com.agychat.app.presentation.theme.AgyPrimary
 import com.agychat.app.presentation.theme.AgySurfaceDark
 import com.agychat.app.presentation.theme.AgyTextPrimary

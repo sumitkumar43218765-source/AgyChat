@@ -7,7 +7,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.agychat.app.presentation.components.AgyChatTopBar
+import com.agychat.app.presentation.common.AgyChatTopBar
 
 @Composable
 fun ChatScreen(

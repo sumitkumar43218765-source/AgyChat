@@ -7,16 +7,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.agychat.app.presentation.theme.AgyPrimary
+import com.agychat.app.presentation.theme.AgySurfaceDark
+import com.agychat.app.presentation.theme.AgyTextPrimary
+import com.agychat.app.presentation.theme.AgyTextSecondary
 import com.agychat.app.presentation.theme.Dimens
-import com.agychat.app.presentation.theme.TextPrimary
-import com.agychat.app.presentation.theme.TextSecondary
-import com.agychat.app.presentation.theme.SurfaceDark
 
 @Composable
 fun AgyChatTextField(
     value: String,
     onValueChange: (String) -> Unit,
-    placeholder: String,
+    placeholder: String = "",
+    label: String? = null,
     modifier: Modifier = Modifier,
     trailingIcon: @Composable (() -> Unit)? = null,
     maxLines: Int = 1
@@ -25,17 +26,18 @@ fun AgyChatTextField(
         value = value,
         onValueChange = onValueChange,
         modifier = modifier,
-        placeholder = { Text(text = placeholder, color = TextSecondary) },
+        label = label?.let { { Text(text = it, color = AgyTextSecondary) } },
+        placeholder = if (placeholder.isNotEmpty()) { { Text(text = placeholder, color = AgyTextSecondary) } } else null,
         trailingIcon = trailingIcon,
         maxLines = maxLines,
-        shape = RoundedCornerShape(Dimens.RadiusMedium),
+        shape = RoundedCornerShape(Dimens.PaddingSmall),
         colors = OutlinedTextFieldDefaults.colors(
-            focusedTextColor = TextPrimary,
-            unfocusedTextColor = TextPrimary,
-            focusedContainerColor = SurfaceDark,
-            unfocusedContainerColor = SurfaceDark,
+            focusedTextColor = AgyTextPrimary,
+            unfocusedTextColor = AgyTextPrimary,
+            focusedContainerColor = AgySurfaceDark,
+            unfocusedContainerColor = AgySurfaceDark,
             focusedBorderColor = AgyPrimary,
-            unfocusedBorderColor = SurfaceDark,
+            unfocusedBorderColor = AgySurfaceDark,
             cursorColor = AgyPrimary
         )
     )

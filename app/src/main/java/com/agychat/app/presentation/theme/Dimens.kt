@@ -22,6 +22,13 @@ object Dimens {
     val PaddingBubble = 12.dp
     val PaddingChip = 8.dp
 
+    // Padding Aliases
+    val PaddingTiny = 4.dp
+    val PaddingSmall = 8.dp
+    val PaddingNormal = 16.dp
+    val PaddingMedium = 16.dp
+    val PaddingLarge = 24.dp
+
     // Chat
     val BubbleMaxWidth = 320.dp
     val ChatInputMinHeight = 48.dp
@@ -36,6 +43,7 @@ object Dimens {
     // Icons
     val IconSizeSm = 16.dp
     val IconSizeMd = 20.dp
+    val IconSizeMedium = 20.dp
     val IconSizeLg = 24.dp
     val IconSizeXl = 32.dp
 

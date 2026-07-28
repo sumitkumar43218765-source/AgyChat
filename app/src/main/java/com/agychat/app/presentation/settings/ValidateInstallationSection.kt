@@ -18,7 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.agychat.app.presentation.components.AgyChatButton
+import com.agychat.app.presentation.common.AgyChatButton
 import com.agychat.app.presentation.theme.AgyPrimary
 import com.agychat.app.presentation.theme.AgyTextPrimary
 import com.agychat.app.presentation.theme.Dimens
