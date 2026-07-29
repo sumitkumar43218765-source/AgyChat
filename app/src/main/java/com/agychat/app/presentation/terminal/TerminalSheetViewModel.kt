@@ -66,7 +66,19 @@ class TerminalSheetViewModel @Inject constructor() : ViewModel() {
 
         viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
             try {
-                val pb = ProcessBuilder("/bin/sh", "-c", cmd)
+                val termuxPrefix = "/data/data/com.termux/files/usr"
+                val termuxHome = "/data/data/com.termux/files/home"
+                val shellPath = if (java.io.File("$termuxPrefix/bin/bash").exists()) "$termuxPrefix/bin/bash" else "/bin/sh"
+                
+                val pb = ProcessBuilder(shellPath, "-c", cmd)
+                val env = pb.environment()
+                env["PREFIX"] = termuxPrefix
+                env["HOME"] = termuxHome
+                env["PATH"] = "$termuxPrefix/bin:/system/bin:/system/xbin"
+                env["LD_LIBRARY_PATH"] = "$termuxPrefix/lib"
+                env["LANG"] = "en_US.UTF-8"
+                env["TMPDIR"] = "$termuxPrefix/tmp"
+                
                 pb.redirectErrorStream(true)
                 val proc = pb.start()
                 process = proc
