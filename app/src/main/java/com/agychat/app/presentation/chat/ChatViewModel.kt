@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.agychat.app.utils.AgyLogger
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(
@@ -41,6 +42,7 @@ class ChatViewModel @Inject constructor(
     private val sessionId: String = savedStateHandle.get<String>("sessionId") ?: ""
 
     init {
+        AgyLogger.i("ChatViewModel", "Initializing for sessionId: $sessionId")
         loadSession()
         observeMessages()
         observePty()

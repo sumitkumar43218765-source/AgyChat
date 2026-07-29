@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.agychat.app.utils.AgyLogger
 
 data class TerminalUiState(
     val outputLines: List<String> = listOf(
@@ -54,6 +55,8 @@ class TerminalSheetViewModel @Inject constructor() : ViewModel() {
     private fun executeCommand() {
         val cmd = _uiState.value.currentInput.trim()
         if (cmd.isEmpty()) return
+
+        AgyLogger.i("Terminal", "Executing command: $cmd")
 
         _uiState.update {
             it.copy(
