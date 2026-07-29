@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.agychat.app.presentation.common.AgyChatTopBar
 import com.agychat.app.presentation.common.EmptyStateView
+import com.agychat.app.presentation.common.ErrorStateView
 import com.agychat.app.presentation.theme.AgyPrimary
 import com.agychat.app.presentation.theme.AgySurfaceDark
 import com.agychat.app.presentation.theme.AgyTextPrimary
@@ -48,7 +49,7 @@ fun PlanViewerScreen(
                     CircularProgressIndicator(color = AgyPrimary)
                 }
             } else if (uiState.error != null) {
-                EmptyStateView(
+                ErrorStateView(
                     message = uiState.error ?: "Error loading artifacts",
                     onRetry = { viewModel.onEvent(PlanViewerUiEvent.RefreshArtifacts) }
                 )
@@ -84,21 +85,21 @@ fun PlanViewerScreen(
                             if (uiState.planArtifact != null) {
                                 PlanCard(artifact = uiState.planArtifact!!)
                             } else {
-                                EmptyStateView(message = "No Plan Artifact Found")
+                                EmptyStateView(title = "No Plan Artifact", subtitle = "Agent hasn't generated a plan yet.")
                             }
                         }
                         1 -> {
                             if (uiState.walkthroughArtifact != null) {
                                 WalkthroughCard(artifact = uiState.walkthroughArtifact!!)
                             } else {
-                                EmptyStateView(message = "No Walkthrough Artifact Found")
+                                EmptyStateView(title = "No Walkthrough", subtitle = "No walkthrough artifact found.")
                             }
                         }
                         2 -> {
                             if (uiState.taskArtifact != null) {
                                 TaskSummaryCard(artifact = uiState.taskArtifact!!)
                             } else {
-                                EmptyStateView(message = "No Task Summary Found")
+                                EmptyStateView(title = "No Task Summary", subtitle = "No task summary found.")
                             }
                         }
                     }

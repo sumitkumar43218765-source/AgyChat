@@ -39,7 +39,7 @@ fun PlanCard(artifact: PlanArtifact) {
                 modifier = Modifier.padding(bottom = Dimens.PaddingSmall)
             )
             Text(
-                text = artifact.content,
+                text = artifact.markdownContent,
                 style = MaterialTheme.typography.bodyMedium,
                 color = AgyTextPrimary.copy(alpha = 0.8f)
             )

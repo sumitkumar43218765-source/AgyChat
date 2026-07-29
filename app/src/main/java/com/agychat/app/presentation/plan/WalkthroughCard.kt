@@ -39,7 +39,7 @@ fun WalkthroughCard(artifact: WalkthroughArtifact) {
                 modifier = Modifier.padding(bottom = Dimens.PaddingSmall)
             )
             Text(
-                text = artifact.content,
+                text = artifact.markdownContent,
                 style = MaterialTheme.typography.bodyMedium,
                 color = AgyTextPrimary.copy(alpha = 0.8f)
             )

@@ -57,7 +57,7 @@ fun WorkspaceListScreen(
                     modifier = Modifier.align(Alignment.Center)
                 )
             } else if (uiState.workspaces.isEmpty()) {
-                EmptyStateView(message = "No workspaces available. Create one to get started.")
+                EmptyStateView(title = "No Workspaces", subtitle = "Create one to get started.")
             } else {
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(uiState.workspaces) { workspace ->

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.agychat.app.domain.usecase.artifact.StartArtifactWatcherUseCase
 import com.agychat.app.domain.usecase.artifact.StopArtifactWatcherUseCase
 import com.agychat.app.domain.usecase.session.GetChatSessionByIdUseCase
+import com.agychat.app.domain.repository.ArtifactRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,6 +20,7 @@ class PlanViewerViewModel @Inject constructor(
     private val startArtifactWatcherUseCase: StartArtifactWatcherUseCase,
     private val stopArtifactWatcherUseCase: StopArtifactWatcherUseCase,
     private val getChatSessionByIdUseCase: GetChatSessionByIdUseCase,
+    private val artifactRepo: ArtifactRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -43,8 +45,10 @@ class PlanViewerViewModel @Inject constructor(
             try {
                 val session = getChatSessionByIdUseCase(id)
                 if (session != null) {
-                    conversationUuid = session.uuid
-                    startWatcher(session.uuid)
+                    conversationUuid = session.conversationUuid
+                    if (session.conversationUuid != null) {
+                        startWatcher(session.conversationUuid)
+                    }
                     _uiState.update { it.copy(isLoading = false) }
                 } else {
                     _uiState.update { it.copy(isLoading = false, error = "Session not found") }
@@ -58,8 +62,21 @@ class PlanViewerViewModel @Inject constructor(
     private fun startWatcher(uuid: String) {
         viewModelScope.launch {
             try {
-                startArtifactWatcherUseCase(uuid).collect { artifacts ->
-                    // In a real app, logic to filter artifacts into plan/walkthrough/task goes here
+                startArtifactWatcherUseCase(uuid)
+                launch {
+                    artifactRepo.observePlanArtifact().collect { artifact ->
+                        _uiState.update { it.copy(planArtifact = artifact) }
+                    }
+                }
+                launch {
+                    artifactRepo.observeWalkthroughArtifact().collect { artifact ->
+                        _uiState.update { it.copy(walkthroughArtifact = artifact) }
+                    }
+                }
+                launch {
+                    artifactRepo.observeTaskArtifact().collect { artifact ->
+                        _uiState.update { it.copy(taskArtifact = artifact) }
+                    }
                 }
             } catch (e: Exception) {
                 _uiState.update { it.copy(error = e.localizedMessage) }
@@ -83,6 +100,6 @@ class PlanViewerViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        conversationUuid?.let { stopArtifactWatcherUseCase(it) }
+        viewModelScope.launch { stopArtifactWatcherUseCase() }
     }
 }
