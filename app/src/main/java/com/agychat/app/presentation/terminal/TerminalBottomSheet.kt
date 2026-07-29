@@ -1,23 +1,17 @@
 package com.agychat.app.presentation.terminal
 
+import android.view.KeyEvent
+import android.view.MotionEvent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.DeleteSweep
@@ -27,22 +21,16 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.agychat.app.presentation.theme.*
+import androidx.compose.ui.viewinterop.AndroidView
+import com.termux.terminal.TerminalSession
+import com.termux.view.TerminalView
+import com.termux.view.TerminalViewClient
 
 // ── Terminal Color Palette ──
 private val TerminalBg = Color(0xFF0A0E14)
@@ -52,7 +40,6 @@ private val TerminalCyan = Color(0xFF39BAE6)
 private val TerminalYellow = Color(0xFFFFB454)
 private val TerminalDimText = Color(0xFF626A73)
 private val TerminalText = Color(0xFFB3B1AD)
-private val TerminalPrompt = Color(0xFFFF8F40)
 private val HandleColor = Color(0xFF3D4752)
 
 @Composable
@@ -63,23 +50,6 @@ fun TerminalBottomSheet(
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val listState = rememberLazyListState()
-    val focusRequester = remember { FocusRequester() }
-
-    // Auto-scroll to bottom when new output comes in
-    LaunchedEffect(uiState.scrollToBottom, uiState.outputLines.size) {
-        if (uiState.outputLines.isNotEmpty()) {
-            listState.animateScrollToItem(uiState.outputLines.size - 1)
-        }
-    }
-
-    // Request focus when sheet becomes visible
-    LaunchedEffect(isVisible) {
-        if (isVisible) {
-            kotlinx.coroutines.delay(300)
-            try { focusRequester.requestFocus() } catch (_: Exception) {}
-        }
-    }
 
     AnimatedVisibility(
         visible = isVisible,
@@ -130,28 +100,48 @@ fun TerminalBottomSheet(
                     )
             )
 
-            // ── Output ──
-            LazyColumn(
-                state = listState,
+            // ── Terminal View ──
+            Box(
                 modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 4.dp),
-                verticalArrangement = Arrangement.spacedBy(2.dp)
+                    .fillMaxSize()
+                    .padding(8.dp)
             ) {
-                items(uiState.outputLines) { line ->
-                    TerminalOutputLine(line = line)
+                uiState.session?.let { session ->
+                    AndroidView(
+                        factory = { context ->
+                            TerminalView(context, null).apply {
+                                setTerminalViewClient(object : TerminalViewClient {
+                                    override fun onScale(scale: Float): Float = 1.0f
+                                    override fun onSingleTapUp(e: MotionEvent) {
+                                        requestFocus()
+                                        context.getSystemService(android.content.Context.INPUT_METHOD_SERVICE)?.let { imm ->
+                                            val inputMethodManager = imm as android.view.inputmethod.InputMethodManager
+                                            inputMethodManager.showSoftInput(this@apply, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
+                                        }
+                                    }
+                                    override fun shouldBackButtonBeMappedToEscape(): Boolean = false
+                                    override fun shouldEnforceCharBasedInput(): Boolean = false
+                                    override fun shouldUseCtrlSpaceWorkaround(): Boolean = false
+                                    override fun isTerminalViewSelected(): Boolean = true
+                                    override fun copyModeChanged(copyMode: Boolean) {}
+                                    override fun onKeyDown(keyCode: Int, e: KeyEvent, session: TerminalSession): Boolean = false
+                                    override fun onKeyUp(keyCode: Int, e: KeyEvent): Boolean = false
+                                    override fun onLongPress(event: MotionEvent): Boolean = false
+                                    override fun readControlKey(): Boolean = false
+                                    override fun readAltKey(): Boolean = false
+                                    override fun readShiftKey(): Boolean = false
+                                    override fun readFnKey(): Boolean = false
+                                    override fun onCodePoint(codePoint: Int, ctrlDown: Boolean, session: TerminalSession): Boolean = false
+                                    override fun onEmulatorSet() {}
+                                })
+                                attachSession(session)
+                                requestFocus()
+                            }
+                        },
+                        modifier = Modifier.fillMaxSize()
+                    )
                 }
             }
-
-            // ── Input Bar ──
-            TerminalInputBar(
-                value = uiState.currentInput,
-                onValueChange = { viewModel.onEvent(TerminalUiEvent.InputChanged(it)) },
-                onExecute = { viewModel.onEvent(TerminalUiEvent.ExecuteCommand) },
-                isRunning = uiState.isProcessRunning,
-                focusRequester = focusRequester
-            )
         }
     }
 }
@@ -214,7 +204,7 @@ private fun TerminalHeader(
                 IconButton(onClick = onClear, modifier = Modifier.size(32.dp)) {
                     Icon(
                         imageVector = Icons.Default.DeleteSweep,
-                        contentDescription = "Clear",
+                        contentDescription = "Restart",
                         tint = TerminalDimText,
                         modifier = Modifier.size(18.dp)
                     )
@@ -229,84 +219,5 @@ private fun TerminalHeader(
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun TerminalOutputLine(line: String) {
-    val isPrompt = line.startsWith("$ ")
-    val isError = line.startsWith("[error:") || line.startsWith("[exit code:")
-
-    val color = when {
-        isPrompt -> TerminalPrompt
-        isError -> AgyError
-        else -> TerminalText
-    }
-
-    Text(
-        text = line,
-        color = color,
-        fontSize = 12.sp,
-        fontFamily = FontFamily.Monospace,
-        lineHeight = 16.sp,
-        modifier = Modifier.fillMaxWidth()
-    )
-}
-
-@Composable
-private fun TerminalInputBar(
-    value: String,
-    onValueChange: (String) -> Unit,
-    onExecute: () -> Unit,
-    isRunning: Boolean,
-    focusRequester: FocusRequester
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(TerminalBgElevated)
-            .padding(horizontal = 12.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        // Prompt symbol
-        Text(
-            text = "❯",
-            color = TerminalGreen,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Monospace
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-
-        // Input field
-        BasicTextField(
-            value = value,
-            onValueChange = onValueChange,
-            modifier = Modifier
-                .weight(1f)
-                .focusRequester(focusRequester),
-            textStyle = TextStyle(
-                color = TerminalText,
-                fontSize = 13.sp,
-                fontFamily = FontFamily.Monospace
-            ),
-            singleLine = true,
-            cursorBrush = SolidColor(TerminalGreen),
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-            keyboardActions = KeyboardActions(onDone = { onExecute() }),
-            decorationBox = { innerTextField ->
-                Box {
-                    if (value.isEmpty()) {
-                        Text(
-                            text = if (isRunning) "waiting..." else "type command...",
-                            color = TerminalDimText,
-                            fontSize = 13.sp,
-                            fontFamily = FontFamily.Monospace
-                        )
-                    }
-                    innerTextField()
-                }
-            }
-        )
     }
 }

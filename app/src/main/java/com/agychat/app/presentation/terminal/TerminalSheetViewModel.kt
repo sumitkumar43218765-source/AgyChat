@@ -1,29 +1,23 @@
 package com.agychat.app.presentation.terminal
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.agychat.app.utils.AgyLogger
+import com.termux.terminal.TerminalSession
+import com.termux.terminal.TerminalSessionClient
+import java.io.File
 
 data class TerminalUiState(
-    val outputLines: List<String> = listOf(
-        "$ Welcome to AgyChat Terminal",
-        "$ Type commands below..."
-    ),
-    val currentInput: String = "",
     val isProcessRunning: Boolean = false,
-    val scrollToBottom: Boolean = false
+    val session: TerminalSession? = null
 )
 
 sealed class TerminalUiEvent {
-    data class InputChanged(val text: String) : TerminalUiEvent()
-    data object ExecuteCommand : TerminalUiEvent()
     data object ClearTerminal : TerminalUiEvent()
 }
 
@@ -33,98 +27,74 @@ class TerminalSheetViewModel @Inject constructor() : ViewModel() {
     private val _uiState = MutableStateFlow(TerminalUiState())
     val uiState: StateFlow<TerminalUiState> = _uiState.asStateFlow()
 
-    private var process: Process? = null
+    private var terminalSession: TerminalSession? = null
+
+    init {
+        startTerminalSession()
+    }
 
     fun onEvent(event: TerminalUiEvent) {
         when (event) {
-            is TerminalUiEvent.InputChanged -> {
-                _uiState.update { it.copy(currentInput = event.text) }
-            }
-            is TerminalUiEvent.ExecuteCommand -> executeCommand()
             is TerminalUiEvent.ClearTerminal -> {
-                _uiState.update {
-                    it.copy(
-                        outputLines = listOf("$ Terminal cleared."),
-                        scrollToBottom = true
-                    )
-                }
+                startTerminalSession()
             }
         }
     }
 
-    private fun executeCommand() {
-        val cmd = _uiState.value.currentInput.trim()
-        if (cmd.isEmpty()) return
-
-        AgyLogger.i("Terminal", "Executing command: $cmd")
-
-        _uiState.update {
-            it.copy(
-                outputLines = it.outputLines + "$ $cmd",
-                currentInput = "",
-                isProcessRunning = true,
-                scrollToBottom = true
-            )
+    private fun startTerminalSession() {
+        terminalSession?.finishIfRunning()
+        
+        val termuxPrefix = "/data/data/com.termux/files/usr"
+        val termuxHome = "/data/data/com.termux/files/home"
+        val shellPath = if (File("$termuxPrefix/bin/bash").exists()) "$termuxPrefix/bin/bash" else "/system/bin/sh"
+        val cwd = termuxHome
+        val args = arrayOf("-l")
+        val env = arrayOf(
+            "PREFIX=$termuxPrefix",
+            "HOME=$termuxHome",
+            "PATH=$termuxPrefix/bin:/system/bin:/system/xbin",
+            "LD_LIBRARY_PATH=$termuxPrefix/lib",
+            "LANG=en_US.UTF-8",
+            "TMPDIR=$termuxPrefix/tmp",
+            "TERM=xterm-256color"
+        )
+        
+        val client = object : TerminalSessionClient {
+            override fun onTextChanged(changedSession: TerminalSession) {}
+            override fun onTitleChanged(changedSession: TerminalSession) {}
+            override fun onSessionFinished(finishedSession: TerminalSession) {
+                _uiState.update { it.copy(isProcessRunning = false) }
+            }
+            override fun onCopyTextToClipboard(session: TerminalSession, text: String) {}
+            override fun onPasteTextFromClipboard(session: TerminalSession) {}
+            override fun onBell(session: TerminalSession) {}
+            override fun onColorsChanged(session: TerminalSession) {}
+            override fun onTerminalCursorStateChange(state: Boolean) {}
+            override fun getTerminalCursorStyle(): Int = 0
+            override fun logError(tag: String, message: String) { AgyLogger.e(tag, message) }
+            override fun logWarn(tag: String, message: String) { AgyLogger.w(tag, message) }
+            override fun logInfo(tag: String, message: String) { AgyLogger.i(tag, message) }
+            override fun logDebug(tag: String, message: String) { AgyLogger.d(tag, message) }
+            override fun logVerbose(tag: String, message: String) { AgyLogger.d(tag, message) }
+            override fun logStackTraceWithMessage(tag: String, message: String, e: Exception) { AgyLogger.e(tag, message, e) }
+            override fun logStackTrace(tag: String, e: Exception) { AgyLogger.e(tag, "Exception", e) }
         }
 
-        viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
-            try {
-                val termuxPrefix = "/data/data/com.termux/files/usr"
-                val termuxHome = "/data/data/com.termux/files/home"
-                val shellPath = if (java.io.File("$termuxPrefix/bin/bash").exists()) "$termuxPrefix/bin/bash" else "/bin/sh"
-                
-                val pb = ProcessBuilder(shellPath, "-c", cmd)
-                val env = pb.environment()
-                env["PREFIX"] = termuxPrefix
-                env["HOME"] = termuxHome
-                env["PATH"] = "$termuxPrefix/bin:/system/bin:/system/xbin"
-                env["LD_LIBRARY_PATH"] = "$termuxPrefix/lib"
-                env["LANG"] = "en_US.UTF-8"
-                env["TMPDIR"] = "$termuxPrefix/tmp"
-                
-                pb.redirectErrorStream(true)
-                val proc = pb.start()
-                process = proc
-
-                val reader = proc.inputStream.bufferedReader()
-                val output = StringBuilder()
-                var line = reader.readLine()
-                while (line != null) {
-                    output.appendLine(line)
-                    _uiState.update {
-                        it.copy(
-                            outputLines = it.outputLines + line,
-                            scrollToBottom = true
-                        )
-                    }
-                    line = reader.readLine()
-                }
-
-                val exitCode = proc.waitFor()
-                if (exitCode != 0) {
-                    _uiState.update {
-                        it.copy(
-                            outputLines = it.outputLines + "[exit code: $exitCode]",
-                            scrollToBottom = true
-                        )
-                    }
-                }
-            } catch (e: Exception) {
-                _uiState.update {
-                    it.copy(
-                        outputLines = it.outputLines + "[error: ${e.message}]",
-                        scrollToBottom = true
-                    )
-                }
-            } finally {
-                _uiState.update { it.copy(isProcessRunning = false) }
-                process = null
+        try {
+            terminalSession = TerminalSession(shellPath, cwd, args, env, 1000, client)
+            _uiState.update { 
+                it.copy(
+                    session = terminalSession,
+                    isProcessRunning = true
+                ) 
             }
+        } catch (e: Exception) {
+            AgyLogger.e("TerminalSheetViewModel", "Failed to start terminal session", e)
         }
     }
 
     override fun onCleared() {
         super.onCleared()
-        process?.destroyForcibly()
+        terminalSession?.finishIfRunning()
     }
 }
