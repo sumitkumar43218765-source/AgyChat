@@ -10,6 +10,10 @@ import com.agychat.app.domain.repository.ChatMessageRepository
 import com.agychat.app.domain.repository.ChatSessionRepository
 import com.agychat.app.domain.repository.PtyBridgeRepository
 import com.agychat.app.domain.repository.WorkspaceRepository
+import com.agychat.app.domain.repository.SettingsRepository
+import com.agychat.app.domain.repository.TerminalEmulatorPort
+import com.agychat.app.data.repository.SettingsRepositoryImpl
+import com.agychat.app.data.terminal.TerminalEmulatorPortImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -49,4 +53,16 @@ abstract class RepositoryModule {
     abstract fun bindWorkspaceRepository(
         impl: WorkspaceRepositoryImpl
     ): WorkspaceRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindSettingsRepository(
+        impl: SettingsRepositoryImpl
+    ): SettingsRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindTerminalEmulatorPort(
+        impl: TerminalEmulatorPortImpl
+    ): TerminalEmulatorPort
 }
