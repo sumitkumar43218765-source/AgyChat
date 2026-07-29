@@ -28,25 +28,43 @@ fun AgyChatNavHost(
         modifier = modifier
     ) {
         composable(NavRoutes.ChatList.route) {
-            ChatListScreen(viewModel = hiltViewModel(), navActions = navActions)
+            ChatListScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToChat = { id -> navActions.navigateToChat(id) },
+                onNavigateToSettings = { navActions.navigateToSettings() },
+                onNavigateToWorkspaces = { navActions.navigateToWorkspaceList() }
+            )
         }
         
         composable(NavRoutes.WorkspaceList.route) {
-            WorkspaceListScreen(viewModel = hiltViewModel(), navActions = navActions)
+            WorkspaceListScreen(
+                viewModel = hiltViewModel(),
+                onNavigateBack = { navActions.navigateUp() }
+            )
         }
 
         composable(NavRoutes.Settings.route) {
-            SettingsScreen(viewModel = hiltViewModel(), navActions = navActions)
+            SettingsScreen(
+                viewModel = hiltViewModel(),
+                onNavigateBack = { navActions.navigateUp() }
+            )
         }
 
         composable(NavRoutes.Chat.route) { backStackEntry ->
             val sessionId = backStackEntry.arguments?.getString("sessionId") ?: ""
-            ChatScreen(viewModel = hiltViewModel(), sessionId = sessionId, navActions = navActions)
+            ChatScreen(
+                viewModel = hiltViewModel(),
+                onNavigateBack = { navActions.navigateUp() },
+                onNavigateToPlan = { navActions.navigateToPlanViewer(sessionId) }
+            )
         }
 
         composable(NavRoutes.PlanViewer.route) { backStackEntry ->
             val sessionId = backStackEntry.arguments?.getString("sessionId") ?: ""
-            PlanViewerScreen(viewModel = hiltViewModel(), sessionId = sessionId, navActions = navActions)
+            PlanViewerScreen(
+                viewModel = hiltViewModel(),
+                onNavigateBack = { navActions.navigateUp() }
+            )
         }
     }
 }

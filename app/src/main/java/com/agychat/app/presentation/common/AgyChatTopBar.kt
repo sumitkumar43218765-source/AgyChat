@@ -12,8 +12,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.agychat.app.presentation.theme.AgyPrimary
-import com.agychat.app.presentation.theme.BackgroundDark
-import com.agychat.app.presentation.theme.TextPrimary
+import com.agychat.app.presentation.theme.AgyBackgroundDark
+import com.agychat.app.presentation.theme.AgyTextPrimary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -24,7 +24,7 @@ fun AgyChatTopBar(
     actions: @Composable RowScope.() -> Unit = {}
 ) {
     TopAppBar(
-        title = { Text(text = title, color = TextPrimary) },
+        title = { Text(text = title, color = AgyTextPrimary) },
         modifier = modifier,
         navigationIcon = {
             if (onNavigateBack != null) {
@@ -39,8 +39,8 @@ fun AgyChatTopBar(
         },
         actions = actions,
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = BackgroundDark,
-            titleContentColor = TextPrimary,
+            containerColor = AgyBackgroundDark,
+            titleContentColor = AgyTextPrimary,
             actionIconContentColor = AgyPrimary
         )
     )

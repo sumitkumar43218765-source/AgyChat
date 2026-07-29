@@ -17,8 +17,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.agychat.app.presentation.theme.Dimens
-import com.agychat.app.presentation.theme.TextPrimary
-import com.agychat.app.presentation.theme.TextSecondary
+import com.agychat.app.presentation.theme.AgyTextPrimary
+import com.agychat.app.presentation.theme.AgyTextSecondary
 
 @Composable
 fun EmptyStateView(
@@ -31,7 +31,7 @@ fun EmptyStateView(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(Dimens.SpacingLarge),
+            .padding(Dimens.SpacingLg),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -40,29 +40,29 @@ fun EmptyStateView(
                 imageVector = icon,
                 contentDescription = null,
                 modifier = Modifier.size(64.dp),
-                tint = TextSecondary
+                tint = AgyTextSecondary
             )
-            Spacer(modifier = Modifier.height(Dimens.SpacingMedium))
+            Spacer(modifier = Modifier.height(Dimens.SpacingMd))
         }
         
         Text(
             text = title,
             style = MaterialTheme.typography.titleLarge,
-            color = TextPrimary,
+            color = AgyTextPrimary,
             textAlign = TextAlign.Center
         )
         
-        Spacer(modifier = Modifier.height(Dimens.SpacingSmall))
+        Spacer(modifier = Modifier.height(Dimens.SpacingSm))
         
         Text(
             text = subtitle,
             style = MaterialTheme.typography.bodyMedium,
-            color = TextSecondary,
+            color = AgyTextSecondary,
             textAlign = TextAlign.Center
         )
         
         if (action != null) {
-            Spacer(modifier = Modifier.height(Dimens.SpacingLarge))
+            Spacer(modifier = Modifier.height(Dimens.SpacingLg))
             action()
         }
     }

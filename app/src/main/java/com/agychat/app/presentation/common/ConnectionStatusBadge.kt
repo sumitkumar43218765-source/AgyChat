@@ -28,8 +28,8 @@ import com.agychat.app.presentation.theme.Dimens
 import com.agychat.app.presentation.theme.StatusConnected
 import com.agychat.app.presentation.theme.StatusConnecting
 import com.agychat.app.presentation.theme.StatusDisconnected
-import com.agychat.app.presentation.theme.SurfaceDark
-import com.agychat.app.presentation.theme.TextPrimary
+import com.agychat.app.presentation.theme.AgySurfaceDark
+import com.agychat.app.presentation.theme.AgyTextPrimary
 
 enum class PtyConnectionState {
     CONNECTED, CONNECTING, DISCONNECTED
@@ -64,9 +64,9 @@ fun ConnectionStatusBadge(
 
     Row(
         modifier = modifier
-            .clip(RoundedCornerShape(Dimens.RadiusSmall))
-            .background(SurfaceDark)
-            .padding(horizontal = Dimens.SpacingSmall, vertical = 4.dp),
+            .clip(RoundedCornerShape(4.dp))
+            .background(AgySurfaceDark)
+            .padding(horizontal = Dimens.SpacingSm, vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
@@ -76,10 +76,10 @@ fun ConnectionStatusBadge(
                 .clip(CircleShape)
                 .background(statusColor)
         )
-        Spacer(modifier = Modifier.width(Dimens.SpacingSmall))
+        Spacer(modifier = Modifier.width(Dimens.SpacingSm))
         Text(
             text = text,
-            color = TextPrimary,
+            color = AgyTextPrimary,
             style = MaterialTheme.typography.labelSmall
         )
     }

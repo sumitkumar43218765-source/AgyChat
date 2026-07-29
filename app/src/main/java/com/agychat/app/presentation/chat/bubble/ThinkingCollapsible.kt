@@ -26,9 +26,9 @@ fun ThinkingCollapsible(
             .padding(Dimens.SpacingMd)
     ) {
         if (isExpanded) {
-            Text(text = content.summary + "\nTokens: ${content.tokens}")
+            Text(text = content.summary + "\nTokens: ${content.tokenCount}")
         } else {
-            Text(text = "💭 Thinking... ${content.timeMs}ms")
+            Text(text = "💭 Thinking... ${content.durationSeconds}s")
         }
     }
 }

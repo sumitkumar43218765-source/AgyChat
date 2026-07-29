@@ -20,8 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.agychat.app.presentation.theme.AgyPrimary
 import com.agychat.app.presentation.theme.Dimens
-import com.agychat.app.presentation.theme.SurfaceDark
-import com.agychat.app.presentation.theme.TextPrimary
+import com.agychat.app.presentation.theme.AgySurfaceDark
+import com.agychat.app.presentation.theme.AgyTextPrimary
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun CollapsibleCard(
@@ -35,21 +36,21 @@ fun CollapsibleCard(
         modifier = modifier
             .fillMaxWidth()
             .animateContentSize(),
-        shape = RoundedCornerShape(Dimens.RadiusMedium),
-        colors = CardDefaults.cardColors(containerColor = SurfaceDark)
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(containerColor = AgySurfaceDark)
     ) {
         Column {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable { onToggle() }
-                    .padding(Dimens.SpacingMedium),
+                    .padding(Dimens.SpacingMd),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = title,
                     style = MaterialTheme.typography.titleMedium,
-                    color = TextPrimary,
+                    color = AgyTextPrimary,
                     modifier = Modifier.weight(1f)
                 )
                 
@@ -65,9 +66,9 @@ fun CollapsibleCard(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            start = Dimens.SpacingMedium,
-                            end = Dimens.SpacingMedium,
-                            bottom = Dimens.SpacingMedium
+                            start = Dimens.SpacingMd,
+                            end = Dimens.SpacingMd,
+                            bottom = Dimens.SpacingMd
                         )
                 ) {
                     content()

@@ -40,7 +40,7 @@ class ChatListViewModel @Inject constructor(
 
     fun onEvent(event: ChatListUiEvent) {
         when (event) {
-            is ChatListUiEvent.CreateNewChat -> viewModelScope.launch { createChatSessionUseCase() }
+            is ChatListUiEvent.CreateNewChat -> viewModelScope.launch { createChatSessionUseCase("New Chat", null) }
             is ChatListUiEvent.DeleteChat -> viewModelScope.launch { deleteChatSessionUseCase(event.id) }
             is ChatListUiEvent.RenameChat -> viewModelScope.launch { renameChatSessionUseCase(event.id, event.newTitle) }
             is ChatListUiEvent.OpenChat -> { /* Handled via UI navigation */ }

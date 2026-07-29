@@ -27,6 +27,6 @@ fun PermissionOptionButton(
             .clickable(onClick = onSelect)
             .padding(Dimens.SpacingSm)
     ) {
-        Text(text = option.label)
+        Text(text = option.text, color = AgyPrimary)
     }
 }

@@ -31,7 +31,7 @@ fun ToolCallCard(
             Text(text = content.actionName, fontWeight = FontWeight.Bold, color = AgySecondary)
             Text(text = content.filePath ?: "")
             if (isExpanded) {
-                Text(text = content.arguments ?: "")
+                Text(text = content.args, color = Color.Gray, style = MaterialTheme.typography.bodySmall)
             }
         }
     }

@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.agychat.app.presentation.theme.AgyError
 import com.agychat.app.presentation.theme.Dimens
-import com.agychat.app.presentation.theme.TextPrimary
+import com.agychat.app.presentation.theme.AgyTextPrimary
 
 @Composable
 fun ErrorStateView(
@@ -32,7 +32,7 @@ fun ErrorStateView(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(Dimens.SpacingLarge),
+            .padding(Dimens.SpacingLg),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -43,22 +43,22 @@ fun ErrorStateView(
             tint = AgyError
         )
         
-        Spacer(modifier = Modifier.height(Dimens.SpacingMedium))
+        Spacer(modifier = Modifier.height(Dimens.SpacingMd))
         
         Text(
             text = message,
             style = MaterialTheme.typography.bodyLarge,
-            color = TextPrimary,
+            color = AgyTextPrimary,
             textAlign = TextAlign.Center
         )
         
         if (onRetry != null) {
-            Spacer(modifier = Modifier.height(Dimens.SpacingLarge))
+            Spacer(modifier = Modifier.height(Dimens.SpacingLg))
             Button(
                 onClick = onRetry,
                 colors = ButtonDefaults.buttonColors(containerColor = AgyError)
             ) {
-                Text("Retry", color = TextPrimary)
+                Text("Retry", color = AgyTextPrimary)
             }
         }
     }

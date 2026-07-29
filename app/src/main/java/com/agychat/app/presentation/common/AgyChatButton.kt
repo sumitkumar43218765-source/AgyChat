@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.agychat.app.presentation.theme.Dimens
 import com.agychat.app.presentation.theme.GradientPrimaryEnd
 import com.agychat.app.presentation.theme.GradientPrimaryStart
-import com.agychat.app.presentation.theme.TextPrimary
+import com.agychat.app.presentation.theme.AgyTextPrimary
 
 @Composable
 fun AgyChatButton(
@@ -39,7 +39,7 @@ fun AgyChatButton(
         onClick = {
             if (!isLoading) onClick()
         },
-        modifier = modifier.clip(RoundedCornerShape(Dimens.RadiusMedium)),
+        modifier = modifier.clip(RoundedCornerShape(12.dp)),
         enabled = enabled,
         contentPadding = PaddingValues(),
         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
@@ -47,19 +47,19 @@ fun AgyChatButton(
         Box(
             modifier = Modifier
                 .background(if (enabled) gradient else Brush.linearGradient(listOf(Color.Gray, Color.Gray)))
-                .padding(horizontal = Dimens.SpacingMedium, vertical = Dimens.SpacingSmall),
+                .padding(horizontal = Dimens.SpacingMd, vertical = Dimens.SpacingSm),
             contentAlignment = Alignment.Center
         ) {
             if (isLoading) {
                 CircularProgressIndicator(
-                    color = TextPrimary,
+                    color = AgyTextPrimary,
                     modifier = Modifier.size(20.dp),
                     strokeWidth = 2.dp
                 )
             } else {
                 Text(
                     text = text,
-                    color = TextPrimary,
+                    color = AgyTextPrimary,
                     style = MaterialTheme.typography.labelLarge
                 )
             }
