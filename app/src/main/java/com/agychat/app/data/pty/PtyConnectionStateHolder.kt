@@ -7,7 +7,7 @@ import javax.inject.Inject
 import com.agychat.app.domain.model.PtyConnectionState
 
 class PtyConnectionStateHolder @Inject constructor() {
-    private val _state = MutableStateFlow<PtyConnectionState>(PtyConnectionState.Disconnected)
+    private val _state = MutableStateFlow<PtyConnectionState>(PtyConnectionState.DISCONNECTED)
 
     fun setState(state: PtyConnectionState) {
         _state.value = state

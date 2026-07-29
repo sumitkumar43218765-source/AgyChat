@@ -19,7 +19,7 @@ class PtyBridgeService @Inject constructor(
 
     fun startProcess(command: String, args: List<String>, cwd: String, size: PtySize): Boolean {
         return try {
-            stateHolder.setState(PtyConnectionState.Connecting)
+            stateHolder.setState(PtyConnectionState.CONNECTING)
             process = spawner.spawn(command, args, emptyMap(), cwd)
             val p = process ?: throw Exception("Failed to start process")
             
@@ -28,10 +28,10 @@ class PtyBridgeService @Inject constructor(
             // outputReader.startReading(p.inputStream, scope)
             
             winsizeSyncer.setSize(size)
-            stateHolder.setState(PtyConnectionState.Connected)
+            stateHolder.setState(PtyConnectionState.CONNECTED)
             true
         } catch (e: Exception) {
-            stateHolder.setState(PtyConnectionState.Error(e.message ?: "Unknown error"))
+            stateHolder.setState(PtyConnectionState.ERROR(e.message ?: "Unknown error"))
             false
         }
     }
@@ -40,7 +40,7 @@ class PtyBridgeService @Inject constructor(
         spawner.destroy()
         inputWriter.close()
         outputReader.stopReading()
-        stateHolder.setState(PtyConnectionState.Disconnected)
+        stateHolder.setState(PtyConnectionState.DISCONNECTED)
         process = null
     }
 
