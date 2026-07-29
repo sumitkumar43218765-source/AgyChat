@@ -100,6 +100,8 @@ class PlanViewerViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        viewModelScope.launch { stopArtifactWatcherUseCase() }
+        kotlinx.coroutines.GlobalScope.launch(kotlinx.coroutines.NonCancellable) {
+            try { stopArtifactWatcherUseCase() } catch (_: Exception) {}
+        }
     }
 }
