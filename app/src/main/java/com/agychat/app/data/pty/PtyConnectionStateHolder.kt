@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
+import com.agychat.app.domain.model.PtyConnectionState
 
 class PtyConnectionStateHolder @Inject constructor() {
     private val _state = MutableStateFlow<PtyConnectionState>(PtyConnectionState.Disconnected)

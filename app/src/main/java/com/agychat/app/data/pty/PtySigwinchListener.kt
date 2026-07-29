@@ -1,6 +1,7 @@
 package com.agychat.app.data.pty
 
 import javax.inject.Inject
+import com.agychat.app.domain.model.PtySize
 
 class PtySigwinchListener @Inject constructor() {
     private var sizeCallback: ((PtySize) -> Unit)? = null

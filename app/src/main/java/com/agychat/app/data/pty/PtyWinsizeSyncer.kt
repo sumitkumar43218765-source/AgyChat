@@ -2,6 +2,7 @@ package com.agychat.app.data.pty
 
 import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Inject
+import com.agychat.app.domain.model.PtySize
 
 class PtyWinsizeSyncer @Inject constructor() {
     private val currentSize = AtomicReference(PtySize(24, 80))

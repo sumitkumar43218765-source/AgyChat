@@ -4,14 +4,8 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
-data class PtySize(val rows: Int, val cols: Int)
-
-sealed class PtyConnectionState {
-    object Disconnected : PtyConnectionState()
-    object Connecting : PtyConnectionState()
-    object Connected : PtyConnectionState()
-    data class Error(val message: String) : PtyConnectionState()
-}
+import com.agychat.app.domain.model.PtySize
+import com.agychat.app.domain.model.PtyConnectionState
 
 @Singleton
 class PtyBridgeService @Inject constructor(

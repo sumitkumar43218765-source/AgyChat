@@ -1,5 +1,7 @@
 package com.agychat.app.data.pty
 
+import com.agychat.app.domain.model.PtySize
+
 interface PtyNativeBindings {
     fun openPty(): Int
     fun closePty(fd: Int)
