@@ -97,3 +97,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
+
+configurations.all {
+    exclude(group = "com.google.guava", module = "listenablefuture")
+}
