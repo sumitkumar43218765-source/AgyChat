@@ -64,7 +64,7 @@ class TerminalSheetViewModel @Inject constructor() : ViewModel() {
             )
         }
 
-        viewModelScope.launch {
+        viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
             try {
                 val pb = ProcessBuilder("/bin/sh", "-c", cmd)
                 pb.redirectErrorStream(true)

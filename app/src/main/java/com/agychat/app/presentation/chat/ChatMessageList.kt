@@ -10,6 +10,7 @@ import com.agychat.app.domain.model.*
 import com.agychat.app.presentation.theme.Dimens
 import com.agychat.app.presentation.chat.bubble.*
 import com.google.gson.Gson
+import androidx.compose.runtime.remember
 
 @Composable
 fun ChatMessageList(
@@ -17,7 +18,7 @@ fun ChatMessageList(
     modifier: Modifier = Modifier,
     onEvent: (ChatUiEvent) -> Unit
 ) {
-    val gson = Gson()
+    val gson = remember { Gson() }
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         reverseLayout = true,
