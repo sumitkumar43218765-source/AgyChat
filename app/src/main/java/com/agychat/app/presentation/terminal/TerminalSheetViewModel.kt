@@ -75,7 +75,7 @@ class TerminalSheetViewModel @Inject constructor() : ViewModel() {
             override fun logWarn(tag: String, message: String) { AgyLogger.w(tag, message) }
             override fun logInfo(tag: String, message: String) { AgyLogger.i(tag, message) }
             override fun logDebug(tag: String, message: String) { AgyLogger.d(tag, message) }
-            override fun logVerbose(tag: String, message: String) { AgyLogger.d(tag, message) }
+            override fun logVerbose(tag: String, message: String) { AgyLogger.v(tag, message) }
             override fun logStackTraceWithMessage(tag: String, message: String, e: Exception) { AgyLogger.e(tag, message, e) }
             override fun logStackTrace(tag: String, e: Exception) { AgyLogger.e(tag, "Exception", e) }
         }

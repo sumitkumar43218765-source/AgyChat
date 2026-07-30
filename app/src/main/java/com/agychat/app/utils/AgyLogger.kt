@@ -33,8 +33,10 @@ object AgyLogger {
         }
     }
 
+    fun v(tag: String, message: String) = write("VERBOSE", tag, message)
     fun d(tag: String, message: String) = write("DEBUG", tag, message)
     fun i(tag: String, message: String) = write("INFO", tag, message)
+    fun w(tag: String, message: String) = write("WARN", tag, message)
     fun e(tag: String, message: String, t: Throwable? = null) {
         val stackTrace = t?.stackTraceToString() ?: ""
         write("ERROR", tag, "$message\n$stackTrace")
