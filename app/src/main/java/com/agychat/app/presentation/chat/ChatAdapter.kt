@@ -2,20 +2,32 @@ package com.agychat.app.presentation.chat
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.agychat.app.databinding.ItemMessageUserBinding
 import com.agychat.app.databinding.ItemMessageAiBinding
+import com.agychat.app.domain.model.ChatMessage
+import com.agychat.app.domain.model.MessageType
 
-class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChatAdapter : ListAdapter<ChatMessage, RecyclerView.ViewHolder>(MessageDiffCallback()) {
 
-    private val messages = mutableListOf<String>() // Dummy data
+    companion object {
+        private const val VIEW_TYPE_USER = 0
+        private const val VIEW_TYPE_AI = 1
+    }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position % 2 == 0) 0 else 1 // Dummy logic
+        val message = getItem(position)
+        return if (message.type == MessageType.USER) {
+            VIEW_TYPE_USER
+        } else {
+            VIEW_TYPE_AI
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == 0) {
+        return if (viewType == VIEW_TYPE_USER) {
             val binding = ItemMessageUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             UserViewHolder(binding)
         } else {
@@ -25,16 +37,24 @@ class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val msg = messages[position]
+        val msg = getItem(position)
         if (holder is UserViewHolder) {
-            holder.binding.textMessage.text = msg
+            holder.binding.textMessage.text = msg.content
         } else if (holder is AiViewHolder) {
-            holder.binding.textMessage.text = msg
+            holder.binding.textMessage.text = msg.content
         }
     }
 
-    override fun getItemCount(): Int = messages.size
-
     class UserViewHolder(val binding: ItemMessageUserBinding) : RecyclerView.ViewHolder(binding.root)
     class AiViewHolder(val binding: ItemMessageAiBinding) : RecyclerView.ViewHolder(binding.root)
+}
+
+class MessageDiffCallback : DiffUtil.ItemCallback<ChatMessage>() {
+    override fun areItemsTheSame(oldItem: ChatMessage, newItem: ChatMessage): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: ChatMessage, newItem: ChatMessage): Boolean {
+        return oldItem == newItem
+    }
 }

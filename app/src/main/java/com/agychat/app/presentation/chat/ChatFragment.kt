@@ -9,6 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.agychat.app.databinding.FragmentChatBinding
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ChatFragment : Fragment() {
@@ -32,15 +35,28 @@ class ChatFragment : Fragment() {
         
         chatAdapter = ChatAdapter()
         binding.chatRecyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = LinearLayoutManager(requireContext()).apply {
+                stackFromEnd = true
+            }
             adapter = chatAdapter
         }
 
         binding.btnSend.setOnClickListener {
             val text = binding.chatInputEditText.text.toString()
             if (text.isNotBlank()) {
-                // Send message logic
+                viewModel.sendMessage(text)
                 binding.chatInputEditText.text.clear()
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(androidx.lifecycle.Lifecycle.State.STARTED) {
+                viewModel.messages.collect { messages ->
+                    chatAdapter.submitList(messages)
+                    if (messages.isNotEmpty()) {
+                        binding.chatRecyclerView.scrollToPosition(messages.size - 1)
+                    }
+                }
             }
         }
     }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.agychat.app.R
 import com.agychat.app.databinding.ActivityMainBinding
+import com.agychat.app.presentation.terminal.TerminalSheetController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -12,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var terminalSheetController: TerminalSheetController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,5 +26,8 @@ class MainActivity : AppCompatActivity() {
 
         val bottomSheetBehavior = BottomSheetBehavior.from(binding.terminalBottomSheet.root)
         // bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN // hide initially if desired
+        
+        terminalSheetController = TerminalSheetController(binding.terminalBottomSheet.terminalView)
+        terminalSheetController.setup()
     }
 }
