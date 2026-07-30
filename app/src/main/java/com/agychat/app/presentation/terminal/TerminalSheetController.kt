@@ -16,7 +16,8 @@ class TerminalSheetController(private val terminalView: TerminalView) {
                 "/",
                 emptyArray(),
                 emptyArray(),
-                null // Dummy or proper TerminalSessionClient
+                8000, // Dummy transcriptRows
+                null  // Dummy or proper TerminalSessionClient
             )
             terminalView.attachSession(session)
         } catch (e: Exception) {
