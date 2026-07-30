@@ -1,3 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.AgyChat" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.AgyChat" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/cyan_neon</item>
+        <item name="colorSecondary">@color/cyan_dark</item>
+        <item name="android:colorBackground">@color/background_dark</item>
+        <item name="colorSurface">@color/surface_dark</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+    </style>
 </resources>

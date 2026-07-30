@@ -1,47 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Primary Brand -->
-    <color name="agy_primary">#FF6C63FF</color>
-    <color name="agy_primary_variant">#FF5A52E0</color>
-    <color name="agy_on_primary">#FFFFFFFF</color>
-
-    <!-- Secondary -->
-    <color name="agy_secondary">#FF03DAC6</color>
-    <color name="agy_secondary_variant">#FF018786</color>
-    <color name="agy_on_secondary">#FF000000</color>
-
-    <!-- Background / Surface -->
-    <color name="agy_background_dark">#FF0D0D1A</color>
-    <color name="agy_surface_dark">#FF1A1A2E</color>
-    <color name="agy_surface_elevated_dark">#FF252540</color>
-    <color name="agy_on_background_dark">#FFEAEAFF</color>
-    <color name="agy_on_surface_dark">#FFCFCFE6</color>
-
-    <color name="agy_background_light">#FFF5F5FF</color>
-    <color name="agy_surface_light">#FFFFFFFF</color>
-    <color name="agy_surface_elevated_light">#FFF0F0FF</color>
-    <color name="agy_on_background_light">#FF1A1A2E</color>
-    <color name="agy_on_surface_light">#FF3D3D5C</color>
-
-    <!-- Chat Bubble Colors -->
-    <color name="bubble_user">#FF6C63FF</color>
-    <color name="bubble_assistant">#FF1E1E30</color>
-    <color name="bubble_tool_call">#FF2D2D4A</color>
-    <color name="bubble_thinking">#FF1A2A3A</color>
-    <color name="bubble_permission">#FF2A1A2E</color>
-
-    <!-- Diff Colors -->
-    <color name="diff_added">#FF1B3A1B</color>
-    <color name="diff_added_text">#FF4ADE80</color>
-    <color name="diff_removed">#FF3A1B1B</color>
-    <color name="diff_removed_text">#FFFF6B6B</color>
-    <color name="diff_context">#FF2D2D4A</color>
-
-    <!-- Status Colors -->
-    <color name="status_connected">#FF4ADE80</color>
-    <color name="status_disconnected">#FFFF6B6B</color>
-    <color name="status_connecting">#FFFBBF24</color>
-
-    <!-- Error -->
-    <color name="agy_error">#FFFF6B6B</color>
-    <color name="agy_on_error">#FFFFFFFF</color>
+    <!-- Deep space black & Neon cyan theme -->
+    <color name="black">#0A0E14</color>
+    <color name="white">#FFFFFF</color>
+    <color name="cyan_neon">#00E5FF</color>
+    <color name="cyan_dark">#00B8D4</color>
+    
+    <color name="background_dark">#0A0E14</color>
+    <color name="surface_dark">#121820</color>
+    <color name="surface_variant_dark">#1C2531</color>
+    
+    <color name="text_primary">#E0E0E0</color>
+    <color name="text_secondary">#9E9E9E</color>
 </resources>
