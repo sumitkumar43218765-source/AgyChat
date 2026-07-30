@@ -44,18 +44,11 @@ class TerminalSheetViewModel @Inject constructor() : ViewModel() {
     private fun startTerminalSession() {
         terminalSession?.finishIfRunning()
         
-        val termuxPrefix = "/data/data/com.termux/files/usr"
-        val termuxHome = "/data/data/com.termux/files/home"
-        val shellPath = if (File("$termuxPrefix/bin/bash").exists()) "$termuxPrefix/bin/bash" else "/system/bin/sh"
-        val cwd = termuxHome
+        val shellPath = "/system/bin/sh"
+        val cwd = "/"
         val args = arrayOf("-l")
         val env = arrayOf(
-            "PREFIX=$termuxPrefix",
-            "HOME=$termuxHome",
-            "PATH=$termuxPrefix/bin:/system/bin:/system/xbin",
-            "LD_LIBRARY_PATH=$termuxPrefix/lib",
-            "LANG=en_US.UTF-8",
-            "TMPDIR=$termuxPrefix/tmp",
+            "PATH=/system/bin:/system/xbin",
             "TERM=xterm-256color"
         )
         
